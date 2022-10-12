@@ -3,18 +3,8 @@
 describe('POST /characters', () => {
 
     before(() => {
-        cy.request({
-            method: 'POST',
-            url: '/sessions',
-            body: {
-                email: 'cabreir@gmail.com',
-                password: 'shazam'
-            }
-        }).then((response) => {
-            expect(response.status).to.equal(200)
-            cy.log(response.body.token)
-            Cypress.env('token', response.body.token)
-        })
+        cy.back2ThePast()
+        cy.setToken()
     })
 
 
@@ -27,7 +17,7 @@ describe('POST /characters', () => {
             active: true
         }
 
-        cy.request({
+        cy.api({
             method: 'POST',
             url: '/characters',
             body: character,
@@ -35,7 +25,7 @@ describe('POST /characters', () => {
                 Authorization: Cypress.env('token')
             }
         }).then((response) => {
-            expect(response.status).to.equal(201)
+            expect(response.status).to.eql(201)
         })
 
     })
