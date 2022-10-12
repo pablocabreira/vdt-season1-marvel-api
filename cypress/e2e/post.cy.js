@@ -8,7 +8,7 @@ describe('POST /characters', () => {
     })
 
 
-    it('Deve cadastrar um personagem', () => {
+    it('deve cadastrar um personagem', () => {
 
         const character = {
             name: 'Wanda Maximoff',
@@ -17,16 +17,33 @@ describe('POST /characters', () => {
             active: true
         }
 
-        cy.api({
-            method: 'POST',
-            url: '/characters',
-            body: character,
-            headers: {
-                Authorization: Cypress.env('token')
-            }
-        }).then((response) => {
+        cy.postCharacter(character).then((response) => {
             expect(response.status).to.eql(201)
+            expect(response.body.character_id.length).to.eql(24)
+        })
+    })
+
+    context('quando o personagem já existe', () => {
+        const character = {
+            name: 'Charles Xavier',
+            alias: 'Professor X',
+            team: ['x-men', 'illuminatis'],
+            active: true
+        }
+
+        beforeEach(() => {
+            cy.postCharacter(character)
+                .then((response) => {
+                    expect(response.status).to.eql(201)
+                })
         })
 
+        it('então não deve cadastrar duplicado', () => {
+            cy.postCharacter(character)
+                .then((response) => {
+                    expect(response.status).to.eql(400)
+                    expect(response.body.error).to.eql('Duplicate character')
+                })
+        })
     })
 })
