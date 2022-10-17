@@ -5,6 +5,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'https://marvel-qa-cademy.herokuapp.com'
+    baseUrl: 'https://marvel-qa-cademy.herokuapp.com',
+    video: false
   },
 });

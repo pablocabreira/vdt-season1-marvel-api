@@ -24,8 +24,6 @@ describe('GET /characters', () => {
     ]
 
     before(() => {
-        cy.back2ThePast()
-        cy.setToken()
         cy.populateCharacters(characters)
     })
 
@@ -53,11 +51,6 @@ describe('GET /characters/id', () => {
         team: ['vingadores'],
         active: true
     }
-
-    before(() => {
-        cy.back2ThePast()
-        cy.setToken()
-    })
 
     context('quando tenho um personagem cadastrado', () => {
         before(() => {

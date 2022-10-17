@@ -2,12 +2,6 @@
 
 describe('POST /characters', () => {
 
-    before(() => {
-        cy.back2ThePast()
-        cy.setToken()
-    })
-
-
     it('deve cadastrar um personagem', () => {
 
         const character = {
@@ -25,9 +19,9 @@ describe('POST /characters', () => {
 
     context('quando o personagem já existe', () => {
         const character = {
-            name: 'Charles Xavier',
-            alias: 'Professor X',
-            team: ['x-men', 'illuminatis'],
+            name: 'T\'Challa',
+            alias: 'Pantera Negra',
+            team: ['vingadores'],
             active: true
         }
 
